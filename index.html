@@ -1,0 +1,1765 @@
+
+                        <!DOCTYPE html>
+                        <html lang="en">
+                        <head>
+                            <meta charset="UTF-8">
+                            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+              <style>
+                body {
+                  background-color: white; /* Ensure the iframe has a white background */
+                }
+
+                /* ═══════════════════════════════════════════════════════════════
+   QUROM Engine - Main Stylesheet
+   Version: 2.1
+   Authority: MAKER | HJK-QUANTUM
+   ═══════════════════════════════════════════════════════════════ */
+
+/* CSS Variables */
+:root {
+    --primary-color: #00bcd4;
+    --secondary-color: #ff4081;
+    --accent-color: #651fff;
+    --success-color: #00e676;
+    --warning-color: #ff9100;
+    --danger-color: #ff1744;
+    
+    --bg-primary: #0a0a0f;
+    --bg-secondary: #12121a;
+    --bg-tertiary: #1a1a2e;
+    
+    --text-primary: #ffffff;
+    --text-secondary: #b0b0c0;
+    --text-muted: #6b6b80;
+    
+    --border-color: #2a2a3e;
+    --card-bg: rgba(26, 26, 46, 0.8);
+    
+    --gradient-primary: linear-gradient(135deg, #00bcd4 0%, #651fff 100%);
+    --gradient-quantum: linear-gradient(135deg, #00bcd4 0%, #ff4081 50%, #651fff 100%);
+    
+    --font-main: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+    
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.5);
+    --shadow-glow: 0 0 20px rgba(0, 188, 212, 0.3);
+    
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 16px;
+    --radius-xl: 24px;
+    
+    --transition-fast: 0.15s ease;
+    --transition-normal: 0.3s ease;
+    --transition-slow: 0.5s ease;
+}
+
+/* Reset & Base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px;
+}
+
+body {
+    font-family: var(--font-main);
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+}
+
+h1 { font-size: 3.5rem; }
+h2 { font-size: 2.5rem; }
+h3 { font-size: 1.75rem; }
+h4 { font-size: 1.25rem; }
+
+p {
+    margin-bottom: 1rem;
+    color: var(--text-secondary);
+}
+
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+}
+
+a:hover {
+    color: var(--secondary-color);
+}
+
+/* Container */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   Navigation
+   ═══════════════════════════════════════════════════════════════ */
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: rgba(10, 10, 15, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border-color);
+    transition: all var(--transition-normal);
+}
+
+.navbar.scrolled {
+    background: rgba(10, 10, 15, 0.98);
+    box-shadow: var(--shadow-md);
+}
+
+.nav-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.logo-icon {
+    font-size: 2rem;
+    animation: spin 10s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.logo-text {
+    background: var(--gradient-quantum);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.version-badge {
+    background: var(--gradient-primary);
+    color: white;
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+    align-items: center;
+}
+
+.nav-link {
+    color: var(--text-secondary);
+    font-weight: 500;
+    padding: 0.5rem 0;
+    position: relative;
+    transition: color var(--transition-fast);
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: var(--primary-color);
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--gradient-primary);
+    transition: width var(--transition-normal);
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+    width: 100%;
+}
+
+.github-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--bg-tertiary);
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
+}
+
+.github-link:hover {
+    border-color: var(--primary-color);
+}
+
+.nav-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 4px;
+    cursor: pointer;
+}
+
+.nav-toggle span {
+    width: 25px;
+    height: 3px;
+    background: var(--text-primary);
+    border-radius: 2px;
+    transition: all var(--transition-fast);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   Hero Section
+   ═══════════════════════════════════════════════════════════════ */
+
+.hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 120px 2rem 80px;
+    overflow: hidden;
+}
+
+.hero-background {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+}
+
+.quantum-particles {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 20% 50%, rgba(0, 188, 212, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(101, 31, 255, 0.1) 0%, transparent 50%);
+}
+
+.grid-overlay {
+    position: absolute;
+    inset: 0;
+    background-image: 
+        linear-gradient(rgba(0, 188, 212, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 188, 212, 0.03) 1px, transparent 1px);
+    background-size: 50px 50px;
+    animation: gridMove 20s linear infinite;
+}
+
+@keyframes gridMove {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(50px, 50px); }
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    max-width: 900px;
+}
+
+.hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(0, 188, 212, 0.1);
+    border: 1px solid rgba(0, 188, 212, 0.3);
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    margin-bottom: 2rem;
+    font-size: 0.875rem;
+    color: var(--primary-color);
+}
+
+.hero-title {
+    margin-bottom: 1.5rem;
+}
+
+.gradient-text {
+    display: block;
+    background: var(--gradient-quantum);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-size: 4rem;
+    margin-bottom: 0.5rem;
+}
+
+.subtitle {
+    display: block;
+    font-size: 1.5rem;
+    color: var(--text-secondary);
+    font-weight: 400;
+}
+
+.hero-description {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+    max-width: 700px;
+    margin: 0 auto 2.5rem;
+    line-height: 1.8;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 4rem;
+}
+
+.hero-stats {
+    display: flex;
+    gap: 3rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.stat-item {
+    text-align: center;
+}
+
+.stat-number {
+    display: block;
+    font-size: 3rem;
+    font-weight: 700;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.stat-label {
+    display: block;
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.hero-scroll {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    animation: bounce 2s ease-in-out infinite;
+}
+
+.scroll-indicator {
+    width: 24px;
+    height: 40px;
+    border: 2px solid var(--text-muted);
+    border-radius: 12px;
+    position: relative;
+}
+
+.scroll-indicator::before {
+    content: '';
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 8px;
+    background: var(--primary-color);
+    border-radius: 2px;
+    animation: scrollDown 2s ease-in-out infinite;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(10px); }
+}
+
+@keyframes scrollDown {
+    0%, 100% { opacity: 1; top: 8px; }
+    50% { opacity: 0; top: 16px; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   Buttons
+   ═══════════════════════════════════════════════════════════════ */
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.875rem 1.75rem;
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    border: none;
+    text-decoration: none;
+}
+
+.btn-primary {
+    background: var(--gradient-primary);
+    color: white;
+    box-shadow: var(--shadow-glow);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 30px rgba(0, 188, 212, 0.5);
+}
+
+.btn-secondary {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+}
+
+.btn-secondary:hover {
+    border-color: var(--primary-color);
+    background: rgba(0, 188, 212, 0.1);
+}
+
+.btn-outline {
+    background: transparent;
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+}
+
+.btn-outline:hover {
+    border-color: var(--primary-color);
+    background: rgba(0, 188, 212, 0.1);
+}
+
+.btn-large {
+    padding: 1rem 2rem;
+    font-size: 1.125rem;
+}
+
+.btn-demo {
+    background: var(--gradient-primary);
+    color: white;
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   Sections
+   ═══════════════════════════════════════════════════════════════ */
+
+section {
+    padding: 100px 0;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.section-badge {
+    display: inline-block;
+    background: rgba(0, 188, 212, 0.1);
+    color: var(--primary-color);
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.section-description {
+    font-size: 1.125rem;
+    color: var(--text-secondary);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   Features Section
+   ═══════════════════════════════════════════════════════════════ */
+
+.features {
+    background: var(--bg-secondary);
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+}
+
+.feature-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    transition: all var(--transition-normal);
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary-color);
+    box-shadow: var(--shadow-glow);
+}
+
+.feature-icon {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+}
+
+.feature-card h3 {
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+}
+
+.feature-list {
+    list-style: none;
+    margin-top: 1.5rem;
+}
+
+.feature-list li {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.5rem 0;
+    color: var(--text-secondary);
+}
+
+.feature-list i {
+    color: var(--success-color);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   Architecture Section
+   ═══════════════════════════════════════════════════════════════ */
+
+.architecture {
+    background: var(--bg-primary);
+}
+
+.layer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 3rem;
+}
+
+.layer-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+    text-align: center;
+    transition: all var(--transition-normal);
+    position: relative;
+    overflow: hidden;
+}
+
+.layer-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--gradient-primary);
+}
+
+.layer-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--primary-color);
+}
+
+.layer-number {
+    display: block;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    opacity: 0.3;
+    margin-bottom: 0.5rem;
+}
+
+.layer-card h4 {
+    font-size: 0.875rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+}
+
+.layer-card p {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.architecture-stats {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    flex-wrap: wrap;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.arch-stat {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--text-secondary);
+    font-weight: 600;
+}
+
+.arch-stat i {
+    color: var(--primary-color);
+    font-size: 1.25rem;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   Demos Section
+   ═══════════════════════════════════════════════════════════════ */
+
+.demos {
+    background: var(--bg-secondary);
+}
+
+.demos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+}
+
+.demo-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: all var(--transition-normal);
+}
+
+.demo-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary-color);
+}
+
+.demo-preview {
+    height: 200px;
+    background: var(--bg-tertiary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid var(--border-color);
+}
+
+#bloch-canvas {
+    width: 100%;
+    height: 100%;
+}
+
+.code-preview {
+    width: 100%;
+    height: 100%;
+    padding: 1rem;
+    background: var(--bg-primary);
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+}
+
+.code-preview pre {
+    margin: 0;
+}
+
+.pipeline-viz {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.pipeline-node {
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    font-size: 0.875rem;
+}
+
+.pipeline-node.ollama {
+    background: rgba(255, 64, 129, 0.2);
+    color: #ff4081;
+    border: 1px solid rgba(255, 64, 129, 0.3);
+}
+
+.pipeline-node.pytorch {
+    background: rgba(0, 188, 212, 0.2);
+    color: #00bcd4;
+    border: 1px solid rgba(0, 188, 212, 0.3);
+}
+
+.pipeline-node.quantum {
+    background: rgba(101, 31, 255, 0.2);
+    color: #651fff;
+    border: 1px solid rgba(101, 31, 255, 0.3);
+}
+
+.pipeline-arrow {
+    color: var(--text-muted);
+    font-size: 1.5rem;
+}
+
+.demo-content {
+    padding: 1.5rem;
+}
+
+.demo-content h3 {
+    margin-bottom: 0.75rem;
+}
+
+.demo-content p {
+    margin-bottom: 1.5rem;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   Installation Section
+   ═══════════════════════════════════════════════════════════════ */
+
+.installation {
+    background: var(--bg-primary);
+}
+
+.installation-steps {
+    max-width: 800px;
+    margin: 0 auto 4rem;
+}
+
+.step {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.step:last-child {
+    border-bottom: none;
+}
+
+.step-number {
+    width: 50px;
+    height: 50px;
+    background: var(--gradient-primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.step-content {
+    flex: 1;
+}
+
+.step-content h3 {
+    margin-bottom: 1rem;
+}
+
+.code-block {
+    position: relative;
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 1rem;
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    overflow-x: auto;
+}
+
+.code-block pre {
+    margin: 0;
+    color: var(--text-secondary);
+}
+
+.copy-btn {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    padding: 0.5rem;
+    cursor: pointer;
+    color: var(--text-secondary);
+    transition: all var(--transition-fast);
+}
+
+.copy-btn:hover {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+.installation-requirements {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+}
+
+.installation-requirements h3 {
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.requirements-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+}
+
+.requirement-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: var(--bg-tertiary);
+    border-radius: var(--radius-md);
+}
+
+.requirement-item i {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   CTA Section
+   ═══════════════════════════════════════════════════════════════ */
+
+.cta {
+    background: var(--gradient-quantum);
+    padding: 80px 0;
+}
+
+.cta-content {
+    text-align: center;
+    color: white;
+}
+
+.cta-content h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.cta-content p {
+    font-size: 1.25rem;
+    opacity: 0.9;
+    margin-bottom: 2rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.cta-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.cta .btn-primary {
+    background: white;
+    color: var(--accent-color);
+}
+
+.cta .btn-secondary {
+    background: transparent;
+    color: white;
+    border-color: white;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   Footer
+   ═══════════════════════════════════════════════════════════════ */
+
+.footer {
+    background: var(--bg-secondary);
+    border-top: 1px solid var(--border-color);
+    padding: 60px 0 30px;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: 2fr repeat(3, 1fr);
+    gap: 3rem;
+    margin-bottom: 3rem;
+}
+
+.footer-brand .brand-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.footer-brand p {
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+}
+
+.authority {
+    font-size: 0.875rem;
+    margin-bottom: 1.5rem !important;
+}
+
+.social-links {
+    display: flex;
+    gap: 1rem;
+}
+
+.social-links a {
+    width: 40px;
+    height: 40px;
+    background: var(--bg-tertiary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+    transition: all var(--transition-fast);
+}
+
+.social-links a:hover {
+    background: var(--primary-color);
+    color: white;
+    transform: translateY(-3px);
+}
+
+.footer-links h4 {
+    margin-bottom: 1.5rem;
+    color: var(--text-primary);
+}
+
+.footer-links ul {
+    list-style: none;
+}
+
+.footer-links li {
+    margin-bottom: 0.75rem;
+}
+
+.footer-links a {
+    color: var(--text-muted);
+    transition: color var(--transition-fast);
+}
+
+.footer-links a:hover {
+    color: var(--primary-color);
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-color);
+    color: var(--text-muted);
+    font-size: 0.875rem;
+}
+
+.highlight {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   Utilities
+   ═══════════════════════════════════════════════════════════════ */
+
+.text-center { text-align: center; }
+.text-gradient { 
+    background: var(--gradient-quantum);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Responsive adjustments in responsive.css */
+
+
+              </style>
+                        </head>
+                        <body>
+                            <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="QUROM - Quantum Recursive Operational Matrix | Full-Stack Sovereign Quantum Processing Engine">
+    <meta name="keywords" content="quantum computing, quantum algorithms, AI, machine learning, PyTorch, TensorFlow, Ollama">
+    <meta name="author" content="MAKER | HJK-QUANTUM">
+    
+    <title>🌀 QUROM Engine V2.1 | Quantum Recursive Operational Matrix</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="assets/images/qurom-logo.svg">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/quantum.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <span class="logo-icon">🌀</span>
+                <span class="logo-text">QUROM</span>
+                <span class="version-badge">V2.1</span>
+            </div>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="#home" class="nav-link active">Home</a></li>
+                <li><a href="#features" class="nav-link">Features</a></li>
+                <li><a href="#architecture" class="nav-link">Architecture</a></li>
+                <li><a href="#demos" class="nav-link">Demos</a></li>
+                <li><a href="pages/documentation.html" class="nav-link">Docs</a></li>
+                <li><a href="pages/api.html" class="nav-link">API</a></li>
+                <li><a href="https://github.com/HJK-QUANTUM/Qurom-Engine" target="_blank" class="nav-link github-link">
+                    <i class="fab fa-github"></i> GitHub
+                </a></li>
+            </ul>
+            <div class="nav-toggle" id="nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-background">
+            <div class="quantum-particles" id="particles"></div>
+            <div class="grid-overlay"></div>
+        </div>
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span class="badge-icon">⚛️</span>
+                <span>Quantum-Native AI Engine</span>
+            </div>
+            <h1 class="hero-title">
+                <span class="gradient-text">QUROM Engine</span>
+                <span class="subtitle">Quantum Recursive Operational Matrix</span>
+            </h1>
+            <p class="hero-description">
+                Full-Stack Sovereign Quantum Processing Engine with 19-Layer Convergent Architecture. 
+                Integrating Quantum Computing, AI Models (Ollama/PyTorch/TensorFlow), and Multi-Engine Pipeline.
+            </p>
+            <div class="hero-buttons">
+                <a href="#demos" class="btn btn-primary">
+                    <i class="fas fa-rocket"></i> Try Demo
+                </a>
+                <a href="pages/documentation.html" class="btn btn-secondary">
+                    <i class="fas fa-book"></i> Documentation
+                </a>
+                <a href="https://github.com/HJK-QUANTUM/Qurom-Engine" target="_blank" class="btn btn-outline">
+                    <i class="fab fa-github"></i> View on GitHub
+                </a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-number" data-count="19">0</span>
+                    <span class="stat-label">Layers</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" data-count="8">0</span>
+                    <span class="stat-label">Algorithms</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" data-count="4">0</span>
+                    <span class="stat-label">Engines</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" data-count="99">0</span>
+                    <span class="stat-label">% Fidelity</span>
+                </div>
+            </div>
+        </div>
+        <div class="hero-scroll">
+            <span>Scroll to Explore</span>
+            <div class="scroll-indicator"></div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">🔥 Features</span>
+                <h2 class="section-title">Powerful Quantum-AI Integration</h2>
+                <p class="section-description">
+                    QUROM combines quantum computing with classical AI frameworks for unprecedented computational power
+                </p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card" data-aos="fade-up">
+                    <div class="feature-icon">⚛️</div>
+                    <h3>19-Layer Architecture</h3>
+                    <p>Convergent logic design with modular sovereign layers for maximum flexibility and scalability</p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check"></i> Quantum State Manager</li>
+                        <li><i class="fas fa-check"></i> Gate Synthesis Engine</li>
+                        <li><i class="fas fa-check"></i> Error Correction Unit</li>
+                    </ul>
+                </div>
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="feature-icon">🧠</div>
+                    <h3>Multi-Engine Pipeline</h3>
+                    <p>Seamlessly integrate Ollama, PyTorch, TensorFlow, and Quantum backends in one unified interface</p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check"></i> Auto-Download Models</li>
+                        <li><i class="fas fa-check"></i> Local Vault Management</li>
+                        <li><i class="fas fa-check"></i> Smart Engine Routing</li>
+                    </ul>
+                </div>
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="feature-icon">🔬</div>
+                    <h3>Quantum Algorithms</h3>
+                    <p>8+ production-ready quantum algorithms including Grover, VQE, QAOA, and Quantum SVM</p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check"></i> Grover's Search</li>
+                        <li><i class="fas fa-check"></i> Variational Eigensolver</li>
+                        <li><i class="fas fa-check"></i> Quantum Teleportation</li>
+                    </ul>
+                </div>
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="feature-icon">📊</div>
+                    <h3>Advanced Visualization</h3>
+                    <p>Interactive Bloch spheres, probability distributions, and density matrix heatmaps</p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check"></i> 3D Bloch Sphere</li>
+                        <li><i class="fas fa-check"></i> Probability Histograms</li>
+                        <li><i class="fas fa-check"></i> Circuit Diagrams</li>
+                    </ul>
+                </div>
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="feature-icon">🚀</div>
+                    <h3>GPU Acceleration</h3>
+                    <p>Auto-detect and optimize for CUDA, cuDNN, and TensorFlow GPU for maximum performance</p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check"></i> Auto GPU Detection</li>
+                        <li><i class="fas fa-check"></i> Memory Optimization</li>
+                        <li><i class="fas fa-check"></i> Multi-Thread Support</li>
+                    </ul>
+                </div>
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="500">
+                    <div class="feature-icon">🔐</div>
+                    <h3>Session Management</h3>
+                    <p>Complete session tracking with JSON export/import for reproducibility and collaboration</p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check"></i> Auto-Save Operations</li>
+                        <li><i class="fas fa-check"></i> Export to JSON/CSV</li>
+                        <li><i class="fas fa-check"></i> Model Registry</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Architecture Section -->
+    <section id="architecture" class="architecture">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">🏗️ Architecture</span>
+                <h2 class="section-title">19-Layer Convergent Logic</h2>
+                <p class="section-description">
+                    Every layer serves a specific purpose in the quantum-AI computation pipeline
+                </p>
+            </div>
+            <div class="architecture-diagram">
+                <div class="layer-grid">
+                    <!-- Layer 1-5 -->
+                    <div class="layer-card layer-core">
+                        <span class="layer-number">01</span>
+                        <h4>Quantum-State-Manager</h4>
+                        <p>Core</p>
+                    </div>
+                    <div class="layer-card layer-neural">
+                        <span class="layer-number">02</span>
+                        <h4>Neural-Lattice-450</h4>
+                        <p>Neural</p>
+                    </div>
+                    <div class="layer-card layer-network">
+                        <span class="layer-number">03</span>
+                        <h4>Entanglement-Router</h4>
+                        <p>Network</p>
+                    </div>
+                    <div class="layer-card layer-control">
+                        <span class="layer-number">04</span>
+                        <h4>Coherence-Stabilizer</h4>
+                        <p>Control</p>
+                    </div>
+                    <div class="layer-card layer-fault">
+                        <span class="layer-number">05</span>
+                        <h4>Error-Correction-Unit</h4>
+                        <p>Fault-Tolerance</p>
+                    </div>
+                    <!-- Layer 6-10 -->
+                    <div class="layer-card layer-compile">
+                        <span class="layer-number">06</span>
+                        <h4>Gate-Synthesis-Engine</h4>
+                        <p>Compilation</p>
+                    </div>
+                    <div class="layer-card layer-readout">
+                        <span class="layer-number">07</span>
+                        <h4>Measurement-Array</h4>
+                        <p>Readout</p>
+                    </div>
+                    <div class="layer-card layer-mapping">
+                        <span class="layer-number">08</span>
+                        <h4>Hamiltonian-Encoder</h4>
+                        <p>Problem-Mapping</p>
+                    </div>
+                    <div class="layer-card layer-ansatz">
+                        <span class="layer-number">09</span>
+                        <h4>Ansatz-Generator</h4>
+                        <p>VQE/QAOA</p>
+                    </div>
+                    <div class="layer-card layer-loop">
+                        <span class="layer-number">10</span>
+                        <h4>Quantum-Optimizer</h4>
+                        <p>Classical-Loop</p>
+                    </div>
+                    <!-- Layer 11-15 -->
+                    <div class="layer-card layer-character">
+                        <span class="layer-number">11</span>
+                        <h4>State-Tomography</h4>
+                        <p>Characterization</p>
+                    </div>
+                    <div class="layer-card layer-quality">
+                        <span class="layer-number">12</span>
+                        <h4>Fidelity-Monitor</h4>
+                        <p>Quality-Control</p>
+                    </div>
+                    <div class="layer-card layer-resource">
+                        <span class="layer-number">13</span>
+                        <h4>Entanglement-Distiller</h4>
+                        <p>Resource-Prep</p>
+                    </div>
+                    <div class="layer-card layer-storage">
+                        <span class="layer-number">14</span>
+                        <h4>Quantum-Memory-Buffer</h4>
+                        <p>Storage</p>
+                    </div>
+                    <div class="layer-card layer-optim">
+                        <span class="layer-number">15</span>
+                        <h4>Circuit-Compiler</h4>
+                        <p>Optimization</p>
+                    </div>
+                    <!-- Layer 16-19 -->
+                    <div class="layer-card layer-calib">
+                        <span class="layer-number">16</span>
+                        <h4>Noise-Characterizer</h4>
+                        <p>Calibration</p>
+                    </div>
+                    <div class="layer-card layer-hybrid">
+                        <span class="layer-number">17</span>
+                        <h4>Hybrid-Interface</h4>
+                        <p>Classical-Quantum</p>
+                    </div>
+                    <div class="layer-card layer-aggregate">
+                        <span class="layer-number">18</span>
+                        <h4>Result-Aggregator</h4>
+                        <p>Post-Processing</p>
+                    </div>
+                    <div class="layer-card layer-autonomous">
+                        <span class="layer-number">19</span>
+                        <h4>Self-Healing-Logic</h4>
+                        <p>Autonomous</p>
+                    </div>
+                </div>
+            </div>
+            <div class="architecture-stats">
+                <div class="arch-stat">
+                    <i class="fas fa-layer-group"></i>
+                    <span>19 Layers</span>
+                </div>
+                <div class="arch-stat">
+                    <i class="fas fa-brain"></i>
+                    <span>8,550 Neural Depth</span>
+                </div>
+                <div class="arch-stat">
+                    <i class="fas fa-bolt"></i>
+                    <span>~200ms Boot Time</span>
+                </div>
+                <div class="arch-stat">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>99.93% Fidelity</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demos Section -->
+    <section id="demos" class="demos">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">🎮 Demos</span>
+                <h2 class="section-title">Interactive Quantum Demonstrations</h2>
+                <p class="section-description">
+                    Experience QUROM's capabilities through interactive web-based demonstrations
+                </p>
+            </div>
+            <div class="demos-grid">
+                <div class="demo-card">
+                    <div class="demo-preview">
+                        <canvas id="bloch-canvas"></canvas>
+                    </div>
+                    <div class="demo-content">
+                        <h3>Bloch Sphere Visualizer</h3>
+                        <p>Interactive 3D visualization of quantum states on the Bloch sphere</p>
+                        <a href="demos/bloch-sphere.html" class="btn btn-demo">
+                            <i class="fas fa-play"></i> Launch Demo
+                        </a>
+                    </div>
+                </div>
+                <div class="demo-card">
+                    <div class="demo-preview">
+                        <div class="code-preview">
+                            <pre><code>engine.run_algorithm(
+    "grover", 
+    oracle=oracle, 
+    n_qubits=3
+)</code></pre>
+                        </div>
+                    </div>
+                    <div class="demo-content">
+                        <h3>Grover's Search</h3>
+                        <p>Experience quantum speedup with Grover's unstructured search algorithm</p>
+                        <a href="demos/grover-demo.html" class="btn btn-demo">
+                            <i class="fas fa-play"></i> Launch Demo
+                        </a>
+                    </div>
+                </div>
+                <div class="demo-card">
+                    <div class="demo-preview">
+                        <div class="pipeline-viz">
+                            <div class="pipeline-node ollama">Ollama</div>
+                            <div class="pipeline-arrow">→</div>
+                            <div class="pipeline-node pytorch">PyTorch</div>
+                            <div class="pipeline-arrow">→</div>
+                            <div class="pipeline-node quantum">Quantum</div>
+                        </div>
+                    </div>
+                    <div class="demo-content">
+                        <h3>Multi-Engine Pipeline</h3>
+                        <p>Watch models load across Ollama, PyTorch, TensorFlow, and Quantum backends</p>
+                        <a href="demos/pipeline-demo.html" class="btn btn-demo">
+                            <i class="fas fa-play"></i> Launch Demo
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Installation Section -->
+    <section id="installation" class="installation">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">📦 Installation</span>
+                <h2 class="section-title">Get Started in Minutes</h2>
+                <p class="section-description">
+                    Install QUROM and start quantum-AI computation immediately
+                </p>
+            </div>
+            <div class="installation-steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Clone Repository</h3>
+                        <div class="code-block">
+                            <button class="copy-btn" onclick="copyCode('clone-code')">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                            <pre id="clone-code"><code>git clone https://github.com/HJK-QUANTUM/Qurom-Engine.git
+cd Qurom-Engine</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Install Dependencies</h3>
+                        <div class="code-block">
+                            <button class="copy-btn" onclick="copyCode('install-code')">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                            <pre id="install-code"><code>pip install -r requirements.txt</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Run Demonstration</h3>
+                        <div class="code-block">
+                            <button class="copy-btn" onclick="copyCode('run-code')">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                            <pre id="run-code"><code>python main.py --demo</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="installation-requirements">
+                <h3>Requirements</h3>
+                <div class="requirements-grid">
+                    <div class="requirement-item">
+                        <i class="fab fa-python"></i>
+                        <span>Python 3.10+</span>
+                    </div>
+                    <div class="requirement-item">
+                        <i class="fas fa-microchip"></i>
+                        <span>4GB RAM Minimum</span>
+                    </div>
+                    <div class="requirement-item">
+                        <i class="fas fa-hdd"></i>
+                        <span>10GB Storage</span>
+                    </div>
+                    <div class="requirement-item">
+                        <i class="fas fa-rocket"></i>
+                        <span>GPU Optional (CUDA)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Ready to Start Quantum Computing?</h2>
+                <p>Join the quantum revolution with QUROM Engine. Open source, powerful, and ready for production.</p>
+                <div class="cta-buttons">
+                    <a href="https://github.com/HJK-QUANTUM/Qurom-Engine" target="_blank" class="btn btn-primary btn-large">
+                        <i class="fab fa-github"></i> Star on GitHub
+                    </a>
+                    <a href="pages/documentation.html" class="btn btn-secondary btn-large">
+                        <i class="fas fa-book"></i> Read Docs
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="brand-logo">
+                        <span class="logo-icon">🌀</span>
+                        <span class="logo-text">QUROM</span>
+                    </div>
+                    <p>Quantum Recursive Operational Matrix</p>
+                    <p class="authority">Authority: MAKER* | HJK-QUANTUM</p>
+                    <div class="social-links">
+                        <a href="https://github.com/HJK-QUANTUM/Qurom-Engine" target="_blank">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#architecture">Architecture</a></li>
+                        <li><a href="#demos">Demos</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    
+              
+                </div>
+                <div class="footer-links">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="https://github.com/HJK-QUANTUM/Qurom-Engine" target="_blank">GitHub Repo</a></li>
+                        <li><a href="#" target="_blank">Issue Tracker</a></li>
+                        <li><a href="#" target="_blank">Changelog</a></li>
+                        <li><a href="#" target="_blank">License</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 QUROM Engine. MIT License.</p>
+                <p>Authority: <span class="highlight">* hjk-maker</span> | Organization: <span class="highlight">HJK-QUANTUM</span></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/main.js"></script>
+    <script src="js/quantum-viz.js"></script>
+    <script src="js/animations.js"></script>
+</body>
+</html>
+
+
+
+              <script>
+                              /**
+ * QUROM Engine - Main JavaScript
+ * Version: 2.1
+ * Authority: MAKER | HJK-QUANTUM
+ */
+
+// ═══════════════════════════════════════════════════════════════
+// Navigation
+// ═══════════════════════════════════════════════════════════════
+
+const navbar = document.getElementById('navbar');
+const navToggle = document.getElementById('nav-toggle');
+const navMenu = document.getElementById('nav-menu');
+
+// Scroll effect
+window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+    } else {
+        navbar.classList.remove('scrolled');
+    }
+});
+
+// Mobile menu toggle
+navToggle.addEventListener('click', () => {
+    navMenu.classList.toggle('active');
+    navToggle.classList.toggle('active');
+});
+
+// Active nav link on scroll
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-link');
+
+window.addEventListener('scroll', () => {
+    let current = '';
+    
+    sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.clientHeight;
+        
+        if (window.scrollY >= sectionTop - 200) {
+            current = section.getAttribute('id');
+        }
+    });
+    
+    navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === `#${current}`) {
+            link.classList.add('active');
+        }
+    });
+});
+
+// ═══════════════════════════════════════════════════════════════
+// Copy Code Function
+// ═══════════════════════════════════════════════════════════════
+
+function copyCode(elementId) {
+    const code = document.getElementById(elementId).textContent;
+    navigator.clipboard.writeText(code).then(() => {
+        // Show success feedback
+        const btn = event.target.closest('.copy-btn');
+        const originalIcon = btn.innerHTML;
+        btn.innerHTML = '<i class="fas fa-check"></i>';
+        btn.style.color = 'var(--success-color)';
+        btn.style.borderColor = 'var(--success-color)';
+        
+        setTimeout(() => {
+            btn.innerHTML = originalIcon;
+            btn.style.color = '';
+            btn.style.borderColor = '';
+        }, 2000);
+    });
+}
+
+// ═══════════════════════════════════════════════════════════════
+// Counter Animation
+// ═══════════════════════════════════════════════════════════════
+
+function animateCounters() {
+    const counters = document.querySelectorAll('.stat-number');
+    const speed = 200;
+    
+    counters.forEach(counter => {
+        const target = +counter.getAttribute('data-count');
+        const count = +counter.innerText;
+        const increment = target / speed;
+        
+        if (count < target) {
+            counter.innerText = Math.ceil(count + increment);
+            setTimeout(animateCounters, 10);
+        } else {
+            counter.innerText = target;
+            if (target === 99) {
+                counter.innerText = '99.93';
+            }
+        }
+    });
+}
+
+// Trigger counter animation when in view
+const statsSection = document.querySelector('.hero-stats');
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            animateCounters();
+            observer.unobserve(entry.target);
+        }
+    });
+}, { threshold: 0.5 });
+
+if (statsSection) {
+    observer.observe(statsSection);
+}
+
+// ═══════════════════════════════════════════════════════════════
+// Smooth Scroll for Anchor Links
+// ═══════════════════════════════════════════════════════════════
+
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+        const href = this.getAttribute('href');
+        
+        if (href !== '#' && href.startsWith('#')) {
+            e.preventDefault();
+            const target = document.querySelector(href);
+            
+            if (target) {
+                const offsetTop = target.offsetTop - 80;
+                window.scrollTo({
+                    top: offsetTop,
+                    behavior: 'smooth'
+                });
+                
+                // Close mobile menu if open
+                navMenu.classList.remove('active');
+                navToggle.classList.remove('active');
+            }
+        }
+    });
+});
+
+// ═══════════════════════════════════════════════════════════════
+// Lazy Loading Images
+// ═══════════════════════════════════════════════════════════════
+
+const lazyImages = document.querySelectorAll('img[data-src]');
+
+const imageObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const img = entry.target;
+            img.src = img.dataset.src;
+            img.classList.add('loaded');
+            imageObserver.unobserve(img);
+        }
+    });
+});
+
+lazyImages.forEach(img => imageObserver.observe(img));
+
+// ═══════════════════════════════════════════════════════════════
+// Console Welcome Message
+// ═══════════════════════════════════════════════════════════════
+
+console.log(`
+╔═══════════════════════════════════════════════════════════╗
+║  🌀 QUROM Engine V2.1                                     ║
+║  Quantum Recursive Operational Matrix                     ║
+║                                                           ║
+║  Authority: MAKER | HJK-QUANTUM                           ║
+║  Repository: https://github.com/HJK-QUANTUM/Qurom-Engine  ║
+║                                                           ║
+║  Status: FULL-STACK SOVEREIGN                             ║
+╚═══════════════════════════════════════════════════════════╝
+`);
+
+// ═══════════════════════════════════════════════════════════════
+// Initialize on DOM Load
+// ═══════════════════════════════════════════════════════════════
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Initialize any components that need DOM
+    console.log('🌀 QUROM Engine Website Initialized');
+    
+    // Add loaded class to body for animations
+    document.body.classList.add('loaded');
+});
+
+// ═══════════════════════════════════════════════════════════════
+// Service Worker Registration (for PWA)
+// ═══════════════════════════════════════════════════════════════
+
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js').then(registration => {
+            console.log('SW registered:', registration);
+        }).catch(error => {
+            console.log('SW registration failed:', error);
+        });
+    });
+}
+
+
+              </script>
+                        </body>
+                        </html>
+                    
